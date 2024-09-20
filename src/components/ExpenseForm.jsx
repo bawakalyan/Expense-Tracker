@@ -1,53 +1,57 @@
-import React, { useContext } from "react";
-import { useState } from "react";
-import { ExpenseContext } from "../context/ExpenseContext";
+import React, { useState } from 'react';
+import { useExpenses } from '../context/ExpenseContext';
 
 const ExpenseForm = () => {
-    const { addExpense } = useContext(ExpenseContext);
-    const [description, setDescription] = useState('');
-    const [amount, setAmount] = useState(0);
-    const [user, setUser] = useState('');
+    const { addExpense } = useExpenses();
+    const [title, setTitle] = useState('');
+    const [amount, setAmount] = useState('');
+    const [category, setCategory] = useState('Food') //Default value initialized
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        if (description === '' || amount === '' || user === '') {
-            alert("Please fill in the fields")
-            return;
-        }
-
         const newExpense = {
             id: Date.now(),
-            description,
+            title,
             amount: parseFloat(amount),
-            user
-        }
+            category,
+        };
+
         addExpense(newExpense);
 
-        setDescription('');
-        setAmount('')
-        setUser('')
-    }
+        setTitle('');
+        setAmount('');
+        category('food')
+    };
 
     return (
-        <form>
-            <div>
-                <label htmlFor="user">User</label>
-                <input type="text" id='user' value={user} onChange={(e) => setUser(e.target.value)}
-                placeholder="Enter User" required />
-            </div>
-            <div>
-                <label htmlFor="description">Description</label>
-                <input type="text" id="description" value={description} onChange={(e)=>setDescription(e.target.value)} placeholder="Enter expense description" required/>
-            </div>
-            <div>
-                <label htmlFor="amount">Amount</label>
-                <input type="text" id="amount" value={amount} onChange={(e)=>setAmount(e.target.value)} placeholder="Enter amount" required/>
-            </div>
-
-            <button type="submit">Add Expenses</button>
+        <form onSubmit={handleSubmit}>
+            <input
+                type="text"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                placeholder="Expense Title"
+                required
+            />
+            <input
+                type="number"
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+                placeholder="Amount"
+                required
+            />
+            <select value={category}
+                onChange={(e) => setCategory(e.target.value)} required>
+                    <option value="food">Food</option>
+                    <option value="enjoyment">Enjoyment</option>
+                    <option value="travel">Travel</option>
+                    <option value="game">Game</option>
+                    <option value="hobbies">Hobbies</option>
+                    <option value="others">Others</option>
+                </select>
+      <button type="submit">Add Expense</button>
         </form>
-    )
-}
+    );
+};
 
 export default ExpenseForm;

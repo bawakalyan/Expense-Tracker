@@ -1,22 +1,23 @@
-import React from "react";
-import { createContext , useState } from "react";
+import React, { createContext, useState, useContext } from 'react';
 
-export const ExpenseContext = createContext();
+const ExpenseContext = createContext();
 
-export const ExpenseProvider = ({children})=>{
-    const [expenses , setExpenses] = useState([]);
+export const ExpenseProvider = ({ children }) => {
+  const [expenses, setExpenses] = useState([]);
 
-    const addExpense = (expenses)=>{
-        setExpenses((prevExpenses)=>[...prevExpenses, expenses])
-    };
+  const addExpense = (expense) => {
+    setExpenses([...expenses, expense]);
+  };
 
-    const deleteExpenses = (expenses)=>{
-        setExpenses((prevExpenses)=> prevExpenses.filter(expenses =>expenses.id !==id))
-    }
+  const removeExpense = (id) => {
+    setExpenses(expenses.filter(expense => expense.id !== id));
+  };
 
-    return (
-        <ExpenseContext.Provider value={{expenses, addExpense, deleteExpenses}}>
-            {children}
-        </ExpenseContext.Provider>
-    )
-}
+  return (
+    <ExpenseContext.Provider value={{ expenses, addExpense, removeExpense }}>
+      {children}
+    </ExpenseContext.Provider>
+  );
+};
+
+export const useExpenses = () => useContext(ExpenseContext);

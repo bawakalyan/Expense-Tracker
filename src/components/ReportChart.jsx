@@ -1,13 +1,12 @@
 import React, { useContext } from 'react';
 import { Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, Title, Tooltip, Legend, ArcElement } from 'chart.js';
-import { ExpenseContext } from '../context/ExpenseContext';
+import { useExpenses } from '../context/ExpenseContext';
 
-// Register necessary Chart.js components
 ChartJS.register(Title, Tooltip, Legend, ArcElement);
 
 const ReportChart = () => {
-  const { expenses } = useContext(ExpenseContext);
+  const { expenses } = useExpenses();
 
   const categoryTotals = expenses.reduce((acc, expense) => {
     if (acc[expense.category]) {
