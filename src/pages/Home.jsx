@@ -7,7 +7,7 @@ const Home = () => {
     console.log("Reached Home")
     return (
         <div>
-            <h1>Expense Tracker</h1>
+            <h1 className='font-medium text-center text-xl'>Expense Tracker</h1>
             <ExpenseForm />
             <ExpenseList />
             <ReportChart />
