@@ -1,8 +1,40 @@
-# React + Vite
+# Basic Expense Tracker Application using Vite Tooling
+A simple expense tracker web application built with React that allows users to add, delete, and track expenses. This app also generates reports in the form of pie charts, supports currency formatting, category filtering, and includes dark mode across all pages.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Features
 
-Currently, two official plugins are available:
+- Add Expenses: Users can add new expenses with titles, amounts, categories, and select their preferred currency.
+- Edit/Delete Expenses: Easily edit or delete expenses from the list.
+- Report Chart: Visualize expenses by category in a pie chart.
+- Dark Mode: Toggle between light and dark modes for a better user experience.
+- Currency Formatting: Expenses can be displayed in various currencies based on user selection.
+- Responsive UI: The app is fully responsive across different screen sizes.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Technologies Used
+
+- Frontend: React, Tailwind CSS
+- Charting: `react-chartjs-2` for pie charts
+- State Management: React Context API
+- Routing: React Router
+- Backend: Node.js, Express.js
+- Build Tool: Vite
+
+## Installation
+
+1.Clone this repository:
+
+    ```sh
+    git clone https://github.com/Dark7177/Expense-Tracker.git
+    ```
+
+2.Install Dependencies for the frontend :
+
+    ```sh
+    npm install
+    ```
+
+3.Switch to the backend directory and install the dependencies :
+    ```sh
+    cd backend 
+    npm install
+    ```
