@@ -23,18 +23,27 @@ A simple expense tracker web application built with React that allows users to a
 
 1.Clone this repository:
 
-    ```sh
+    ```
     git clone https://github.com/Dark7177/Expense-Tracker.git
     ```
 
 2.Install Dependencies for the frontend :
 
-    ```sh
+    ```
     npm install
     ```
 
 3.Switch to the backend directory and install the dependencies :
-    ```sh
+    ```
     cd backend 
     npm install
+    ```
+
+## Running the App
+
+1.Start app:
+
+Go to the root directory of the project and start the frontend: 
+    ```
+        npm run dev
     ```
