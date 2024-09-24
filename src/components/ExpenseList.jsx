@@ -1,10 +1,15 @@
-// src/components/ExpenseList.jsx
 import React from 'react';
 import { useExpenses } from '../context/ExpenseContext';
 
 const ExpenseList = () => {
   const { expenses, removeExpense } = useExpenses();
 
+  const formatCurrency = (amount, currency) => {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: currency,
+    }).format(amount);
+  };
   return (
     <div className="container mx-auto px-4 py-8">
       <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-6 text-center">Expense List</h2>
@@ -27,7 +32,7 @@ const ExpenseList = () => {
                 </button>
               </div>
               <div className="text-gray-800 dark:text-gray-300 mb-4">
-                <span className="text-xl font-bold">${expense.amount.toFixed(2)}</span>
+                <span className="text-xl font-bold">{formatCurrency(expense.amount, expense.currency)}</span>
               </div>
               <div className="inline-flex items-center px-3 py-1 rounded-full bg-blue-100 text-blue-600 text-sm font-medium">
                 {expense.category}

@@ -6,6 +6,7 @@ const ExpenseForm = () => {
   const [title, setTitle] = useState('');
   const [amount, setAmount] = useState('');
   const [category, setCategory] = useState('food');
+  const [currency, setCurreny] = useState('USD')
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -15,6 +16,7 @@ const ExpenseForm = () => {
       title,
       amount: parseFloat(amount),
       category,
+      currency,
     };
 
     addExpense(newExpense);
@@ -87,7 +89,17 @@ const ExpenseForm = () => {
             <option value="others">Extras/Others</option>
           </select>
         </div>
-
+        <div>
+          <label htmlFor="currency" className='block text-sm font-medium text-gray-700 dark:text-gray-300'>Currency</label>
+          <select id="currency" value={currency} onChange={(e) =>
+            setCurreny(e.target.value)
+          } className='mt-1 block w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm dark:bg-gray-700 dark:text-gray-300 focus:ring-blue-500 focus:border-blue-500' required>
+            <option value="USD">USD - US Dollar</option>
+            <option value="EURO">EUR - Euro</option>
+            <option value="JPY">JPY - Japanese Yen</option>
+            <option value="INR">INR - Indian Ruppee</option>
+          </select>
+        </div>
         <div>
           <button
             type="submit"
