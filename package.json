@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https:Dark7177.github.io/Exp-tracker",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -10,7 +11,9 @@
     "preview": "vite preview",
     "start": "react-scripts start",
     "test": "react-scripts test",
-    "eject" :"react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy" : "npm run dev",
+    "deploy" : "gh-pages -d build"
   },
   "dependencies": {
     "chart.js": "^4.4.4",
@@ -30,6 +33,7 @@
     "eslint-plugin-react": "^7.35.0",
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
     "eslint-plugin-react-refresh": "^0.4.9",
+    "gh-pages": "^6.1.1",
     "globals": "^15.9.0",
     "postcss": "^8.4.47",
     "tailwind": "^4.0.0",
