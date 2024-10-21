@@ -1,15 +1,33 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useExpenses } from '../context/ExpenseContext';
+import axios from 'axios';
 
 const ExpenseList = () => {
-  const { expenses, removeExpense } = useExpenses();
+  const { expenses, setExpenses, removeExpense } = useExpenses();
+
+  useEffect(() => {
+    const fetchExpenses = async () => {
+      const username = localStorage.getItem('username');
+      if (!username) return;
+
+      try {
+        const response = await axios.get(`http://localhost:5000/expenses?username=${username}`);
+        setExpenses(response.data);
+      } catch (error) {
+        console.error('Error fetching expenses', error);
+      }
+    };
+
+    fetchExpenses();
+  }, [setExpenses]);
 
   const formatCurrency = (amount, currency) => {
-    return new Intl.NumberFormat('en-US', {
+    return new Intl.NumberFormat(currency === 'EUR' ? 'de-DE' : 'en-US', {
       style: 'currency',
       currency: currency,
     }).format(amount);
   };
+
   return (
     <div className="container mx-auto px-4 py-8">
       <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-6 text-center">Expense List</h2>

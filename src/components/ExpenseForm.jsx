@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { useExpenses } from '../context/ExpenseContext';
 
 const ExpenseForm = () => {
@@ -6,24 +7,39 @@ const ExpenseForm = () => {
   const [title, setTitle] = useState('');
   const [amount, setAmount] = useState('');
   const [category, setCategory] = useState('food');
-  const [currency, setCurreny] = useState('USD')
+  const [currency, setCurrency] = useState('USD');
+  const [error, setError] = useState(null);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const username = localStorage.getItem('username');
+    if (!username) {
+      setError('You must be logged in to add expenses');
+      return;
+    }
+
     const newExpense = {
-      id: Date.now(),
       title,
       amount: parseFloat(amount),
       category,
       currency,
+      username,
     };
 
-    addExpense(newExpense);
+    try {
+      const response = await axios.post('http://localhost:5000/api/expenses/add', newExpense);
+      alert(response.data.message);
+      addExpense(newExpense);
 
-    setTitle('');
-    setAmount('');
-    setCategory('food');
+      setTitle('');
+      setAmount('');
+      setCategory('food');
+      setCurrency('USD');
+      setError(null);
+    } catch (err) {
+      setError('Error adding expense. Please try again.');
+    }
   };
 
   return (
@@ -31,6 +47,7 @@ const ExpenseForm = () => {
       <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-6 text-center">
         Add New Expense
       </h2>
+      {error && <p className="text-red-500 text-center">{error}</p>}
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label
@@ -91,13 +108,17 @@ const ExpenseForm = () => {
         </div>
         <div>
           <label htmlFor="currency" className='block text-sm font-medium text-gray-700 dark:text-gray-300'>Currency</label>
-          <select id="currency" value={currency} onChange={(e) =>
-            setCurreny(e.target.value)
-          } className='mt-1 block w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm dark:bg-gray-700 dark:text-gray-300 focus:ring-blue-500 focus:border-blue-500' required>
+          <select
+            id="currency"
+            value={currency}
+            onChange={(e) => setCurrency(e.target.value)}
+            className='mt-1 block w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm dark:bg-gray-700 dark:text-gray-300 focus:ring-blue-500 focus:border-blue-500'
+            required
+          >
             <option value="USD">USD - US Dollar</option>
             <option value="EURO">EUR - Euro</option>
             <option value="JPY">JPY - Japanese Yen</option>
-            <option value="INR">INR - Indian Ruppee</option>
+            <option value="INR">INR - Indian Rupee</option>
           </select>
         </div>
         <div>

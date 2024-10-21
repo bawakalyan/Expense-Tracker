@@ -1,14 +1,16 @@
 const express = require('express');
-const path = require('path');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const userRoutes = require('./routes/userRoutes'); // Corrected import
+const expenseRoutes = require('./routes/expenseRoutes'); 
+const { readFileSync, writeFileSync, existsSync } = require('fs');
+
 const app = express();
-const port = process.env.PORT || 3000;
+app.use(cors());
+app.use(bodyParser.json());
 
-app.use(express.static(path.join(__dirname, '../build')))
+app.use('/users', userRoutes);
+app.use('/expenses', expenseRoutes);
 
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../build', 'index.html'))
-})
-
-app.listen(port, () => {
-    console.log(`Server is running on the following port ${port}`)
-})
+const PORT = 5000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
